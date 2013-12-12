@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <meta charset="UTF-8">
+    <title>Giant Space Baby</title>
+	<style>
+	body {
+		font-family: 'Raleway', sans-serif;
+	}
+	  canvas {
+	    border: 1px solid black;
+	  }
+	</style>
+  </head>
+  <body>
+		<canvas id='canvas'></canvas>
+		<script type='text/javascript'>
+			var img_goose = image("goose.png");
+			var x = 618, y = 700;
+		
+			var WIDTH = 1300;
+			var HEIGHT = 800;
+			var FPS = 60;
+			var gameState;
+			var mx;
+			var my;
+			var clicked = false;
+			var projectiles = new Array();
+			var isKeyDown = new Array();
+			for (var i = 0; i < 300; i++) {
+				isKeyDown[i] = false;
+			}
+			
+			var stars = new Array();
+			var starOffsets = new Array();
+			starOffsets[1] = 0;
+			starOffsets[2] = 0;
+			starOffsets[3] = 0;
+			for (var i = 0; i < 333; i++) {
+				var star = new Object();
+				star.x = Math.floor(Math.random()*WIDTH);
+				star.y = Math.floor(Math.random()*HEIGHT);
+				star.size = Math.floor(Math.random()*3) + 1;
+				stars[i] = star;
+			}
+			
+			function projectile(img, xVel, yVel, xPos, yPos, mine) {
+				this.img = img;
+				this.xVel = xVel;
+				this.yVel = yVel;
+				this.mine = mine;
+				this.xPos = xPos;
+				this.yPos = yPos;
+				this.update = function() {
+					if (this.mine) {
+					
+					}
+					else {
+					
+					}
+					this.xPos += this.xVel;
+					this.yPos += this.yVel;
+				}
+			}
+			
+			function image(src) {
+				var img = new Image();
+				img.src = "img/" + src;
+				img.imgOK = false;
+				img.onload = function() {
+					img.imgOK = true;
+				}
+				return img;
+			}
+			
+			var canvasElement = document.getElementById('canvas');
+			canvasElement.width = WIDTH;
+			canvasElement.height = HEIGHT;
+			var ctx = canvasElement;
+			
+			function init() {
+				ctx.font = "24pt Arial, sans-serif";
+				ctx.textBaseline = "top";
+			}
+			
+			if (canvasElement.getContext) {
+				ctx = canvasElement.getContext("2d");
+				init();
+				setInterval(function() {
+					update();
+					draw();
+				}, 1000/FPS);
+			}
+			else {
+				alert("Your browser doesn't seem to support the <canvas> element.");
+			}
+			
+			function update() {
+				starOffsets[1]+=.333;
+				starOffsets[2]+=.666;
+				starOffsets[3]+=1;
+				projectiles.forEach(function(p) {
+					p.update();
+				});
+				if (isKeyDown[KEY_A]) {
+					x-=4;
+				}
+				if (isKeyDown[KEY_D]) {
+					x+=4;
+				}
+				switch (gameState) {
+				}
+				clicked = false;
+			}
+			
+			function draw() {
+				ctx.clearRect(0, 0, WIDTH, HEIGHT);
+				ctx.fillStyle = "#000";
+				ctx.fillRect(0, 0, WIDTH, HEIGHT);
+				ctx.fillStyle = "#FFF";
+				stars.forEach(function(s) {
+					ctx.fillRect((s.x+(x/8))%WIDTH, (s.y+starOffsets[s.size])%HEIGHT, s.size, s.size);
+				});
+				ctx.drawImage(img_goose, x, y);
+				switch (gameState) {
+				}
+			}
+			
+			function getClick(e) {
+				var evt = e || window.event;
+				mx = evt.pageX - canvasElement.offsetLeft;
+				my = evt.pageY - canvasElement.offsetTop;
+				clicked = true;
+			}
+			
+			window.onkeydown = function(e) {
+				var key = e.keyCode ? e.keyCode : e.which;
+				isKeyDown[key] = true;
+				switch (gameState) {
+					
+				}
+			}
+			window.onkeyup = function(e) {
+				var key = e.keyCode ? e.keyCode : e.which;
+				isKeyDown[key] = false;
+			}
+			canvasElement.addEventListener("mousedown", getClick);
+			
+			var KEY_Q = 81;
+			var KEY_W = 87;
+			var KEY_E = 69;
+			var KEY_A = 65;
+			var KEY_S = 83;
+			var KEY_D = 68;
+			var KEY_Z = 90;
+			var KEY_X = 88;
+			var KEY_C = 67;
+			var KEY_G = 71;
+			var KEY_H = 72;
+			var KEY_J = 74;
+			var KEY_UP = 38;
+			var KEY_DOWN = 40;
+			var KEY_LEFT = 37;
+			var KEY_RIGHT = 39;
+			var KEY_1 = 97;
+			var KEY_2 = 98;
+			var KEY_3 = 99;
+			var KEY_4 = 100;
+			var KEY_5 = 101;
+			var KEY_6 = 102;
+			var KEY_7 = 103;
+			var KEY_8 = 104;
+			var KEY_9 = 105;
+			var KEY_ENTER = 13;
+		</script>
+  </body>
+</html>
