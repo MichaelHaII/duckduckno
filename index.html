@@ -120,7 +120,7 @@
 				ctx.fillRect(0, 0, WIDTH, HEIGHT);
 				ctx.fillStyle = "#FFF";
 				stars.forEach(function(s) {
-					ctx.fillRect((s.x+(x/8))%WIDTH, (s.y+starOffsets[s.size])%HEIGHT, s.size, s.size);
+					ctx.fillRect((s.x+((x*s.size)/32))%WIDTH, (s.y+starOffsets[s.size])%HEIGHT, s.size, s.size);
 				});
 				ctx.drawImage(img_goose, x, y);
 				switch (gameState) {
